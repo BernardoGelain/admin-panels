@@ -1,12 +1,7 @@
 // Since QueryClientProvider relies on useContext under the hood, we have to put 'use client' on top
 "use client";
 
-import {
-  isServer,
-  QueryCache,
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query";
+import { isServer, QueryCache, QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactNode } from "react";
 import { toast } from "sonner";
 import { ThemeProvider } from "./components/theme/theme-provider/theme-provider";
@@ -73,12 +68,7 @@ export default function Providers({
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider
-        attribute="class"
-        defaultTheme="dark"
-        enableSystem
-        disableTransitionOnChange
-      >
+      <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
         {children}
       </ThemeProvider>
     </QueryClientProvider>
