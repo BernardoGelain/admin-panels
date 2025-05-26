@@ -12,7 +12,7 @@ import { QUERY_KEYS } from "~/query-keys/query-keys";
 import { ControlledTextInput } from "~/components/form/controlled-input/controlled-input";
 
 import { MessageModel } from "~/page-components/crud/messages-page/types/message-model";
-import { MessageFormValidation, MessageFormValues } from "./validation/panel-form-validation";
+import { MessageFormValidation, MessageFormValues } from "./validation/message-form-validation";
 import { MultiEntitySelector } from "~/components/crud/entity-multi-selector/entity-multi-selector";
 
 export function MessageForm({ messageId }: { messageId?: string }) {
