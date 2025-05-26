@@ -8,22 +8,11 @@ type Props = {
   baseUrl: string;
 };
 
-export function DeleteEntityAction({
-  entityId,
-  queryKey,
-  successMessage,
-  baseUrl,
-}: Props) {
+export function DeleteEntityAction({ entityId, queryKey, successMessage, baseUrl }: Props) {
   const deleteEntityMutation = useDeleteEntityMutation({
     queryKey,
     successMessage,
   });
 
-  return (
-    <DropdownMenuItem
-      onClick={() => deleteEntityMutation.mutateAsync({ baseUrl, entityId })}
-    >
-      Deletar
-    </DropdownMenuItem>
-  );
+  return <DropdownMenuItem onClick={() => deleteEntityMutation.mutateAsync({ baseUrl, entityId })}>Deletar</DropdownMenuItem>;
 }
