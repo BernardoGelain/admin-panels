@@ -1,3 +1,5 @@
+"use client";
+
 import axios, { AxiosError, AxiosRequestConfig } from "axios";
 import nookies from "nookies";
 import api from "./api";
@@ -64,11 +66,7 @@ authorizedApi.interceptors.response.use(
 
     const originalConfig: AxiosOriginalConfig = error.config;
     originalConfig!.headers = { ...originalConfig!.headers };
-    if (
-      error?.response?.status === 401 &&
-      originalConfig &&
-      !originalConfig?.sent
-    ) {
+    if (error?.response?.status === 401 && originalConfig && !originalConfig?.sent) {
       return getAuthToken()
         .then((response) => {
           originalConfig!.sent = true;

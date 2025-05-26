@@ -4,26 +4,9 @@ import Image from "next/image";
 import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { Button } from "~/components/ui/button";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-  CommandSkeleton,
-} from "~/components/ui/command";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "~/components/ui/form";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "~/components/ui/popover";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSkeleton } from "~/components/ui/command";
+import { FormControl, FormField, FormItem, FormLabel } from "~/components/ui/form";
+import { Popover, PopoverContent, PopoverTrigger } from "~/components/ui/popover";
 import { useGetEntityList } from "~/hooks/api/crud/use-get-entity-list";
 import { useDebounce } from "~/hooks/use-debounce";
 import { cn } from "~/lib/utils";
@@ -60,8 +43,8 @@ export const ImageSelector = () => {
     fileUrl: string;
   }>({
     keywords: debouncedSearch || galleryName,
-    entityBaseUrl: "GALLERIES",
-    queryKey: QUERY_KEYS.GALLERIES.LIST,
+    entityBaseUrl: "GROUPS",
+    queryKey: QUERY_KEYS.GROUPS.LIST,
   });
 
   const selectedImage = form.watch("imageId");
@@ -106,11 +89,7 @@ export const ImageSelector = () => {
               }}
             >
               <FormControl>
-                <Button
-                  className="flex w-full justify-between !overflow-hidden md:max-w-[620px]"
-                  role="combobox"
-                  variant="outlineSecondary"
-                >
+                <Button className="flex w-full justify-between !overflow-hidden md:max-w-[620px]" role="combobox" variant="outlineSecondary">
                   <div className="flex items-center gap-2">
                     {selectedImage && selectedImageObj && (
                       <Image
@@ -121,11 +100,7 @@ export const ImageSelector = () => {
                         height={24}
                       />
                     )}
-                    <span>
-                      {selectedImage
-                        ? selectedImageObj?.galleryName
-                        : "Selecione uma imagem"}
-                    </span>
+                    <span>{selectedImage ? selectedImageObj?.galleryName : "Selecione uma imagem"}</span>
                   </div>
                   <ChevronDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
@@ -133,15 +108,9 @@ export const ImageSelector = () => {
             </PopoverTrigger>
             <PopoverContent className="w-full p-0">
               <Command shouldFilter={false}>
-                <CommandInput
-                  value={gallerySearch}
-                  onValueChange={setGallerySearch}
-                  placeholder="Procurar imagens..."
-                />
+                <CommandInput value={gallerySearch} onValueChange={setGallerySearch} placeholder="Procurar imagens..." />
                 <CommandList className="w-full md:max-w-[620px]">
-                  {!isLoading && !isFetching && images.length === 0 && (
-                    <CommandEmpty>Nenhuma imagem encontrada.</CommandEmpty>
-                  )}
+                  {!isLoading && !isFetching && images.length === 0 && <CommandEmpty>Nenhuma imagem encontrada.</CommandEmpty>}
                   {(isLoading || isFetching) && <CommandSkeleton />}
                   <CommandGroup>
                     {!isLoading &&
@@ -159,23 +128,10 @@ export const ImageSelector = () => {
                           }}
                         >
                           <div className="flex items-center gap-4">
-                            <Image
-                              className="w-8 h-8 rounded-md object-cover"
-                              src={image.fileUrl}
-                              alt={image.galleryName}
-                              width={32}
-                              height={32}
-                            />
+                            <Image className="w-8 h-8 rounded-md object-cover" src={image.fileUrl} alt={image.galleryName} width={32} height={32} />
                             <span>{image.galleryName}</span>
                           </div>
-                          <CheckIcon
-                            className={cn(
-                              "ml-auto h-4 w-4",
-                              String(image.id) === field.value
-                                ? "opacity-100"
-                                : "opacity-0"
-                            )}
-                          />
+                          <CheckIcon className={cn("ml-auto h-4 w-4", String(image.id) === field.value ? "opacity-100" : "opacity-0")} />
                         </CommandItem>
                       ))}
                   </CommandGroup>

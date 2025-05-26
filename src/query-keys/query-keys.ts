@@ -11,7 +11,8 @@ export const QUERY_KEYS = {
     LIST: "groups-list",
     DETAILS: "groups-details",
   },
-  USER: {
+  USERS: {
     WHO_I_AM: "ticket-types-list",
+    LIST: "ticket-types-list",
   },
 } as const;

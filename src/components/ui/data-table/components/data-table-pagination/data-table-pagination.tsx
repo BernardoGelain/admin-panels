@@ -1,13 +1,9 @@
+"use client";
+
 import { Table } from "@tanstack/react-table";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { Button } from "~/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "~/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "~/components/ui/select";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect } from "react";
 
@@ -16,10 +12,7 @@ interface DataTablePaginationProps<TData> {
   totalRecords: number;
 }
 
-export function DataTablePagination<TData>({
-  table,
-  totalRecords,
-}: DataTablePaginationProps<TData>) {
+export function DataTablePagination<TData>({ table, totalRecords }: DataTablePaginationProps<TData>) {
   const searchParams = useSearchParams();
   const createQueryString = useCallback(
     (params: Record<string, string | number>) => {
@@ -41,11 +34,7 @@ export function DataTablePagination<TData>({
         size: pageSize,
       });
 
-      window.history.pushState(
-        null,
-        "",
-        `${window.location.pathname}?${queryString}`
-      );
+      window.history.pushState(null, "", `${window.location.pathname}?${queryString}`);
     },
     [createQueryString]
   );
@@ -92,13 +81,8 @@ export function DataTablePagination<TData>({
       </div>
       <div className="flex items-center space-x-6 lg:space-x-8">
         <div className="flex items-center space-x-2">
-          <p className="text-sm font-medium hidden lg:block">
-            Linhas por página
-          </p>
-          <Select
-            value={`${table.getState().pagination.pageSize}`}
-            onValueChange={handlePageSizeChange}
-          >
+          <p className="text-sm font-medium hidden lg:block">Linhas por página</p>
+          <Select value={`${table.getState().pagination.pageSize}`} onValueChange={handlePageSizeChange}>
             <SelectTrigger className="h-8 w-[70px]">
               <SelectValue placeholder={table.getState().pagination.pageSize} />
             </SelectTrigger>
@@ -113,26 +97,15 @@ export function DataTablePagination<TData>({
         </div>
 
         <div className="flex items-center justify-center text-sm font-medium">
-          Página {table.getState().pagination.pageIndex + 1} de{" "}
-          {table.getPageCount()}
+          Página {table.getState().pagination.pageIndex + 1} de {table.getPageCount()}
         </div>
 
         <div className="flex items-center space-x-2">
-          <Button
-            variant="outline"
-            className="h-8 w-8 p-0"
-            onClick={handlePreviousPage}
-            disabled={!table.getCanPreviousPage()}
-          >
+          <Button variant="outline" className="h-8 w-8 p-0" onClick={handlePreviousPage} disabled={!table.getCanPreviousPage()}>
             <span className="sr-only">Go to previous page</span>
             <ChevronLeftIcon className="h-4 w-4" />
           </Button>
-          <Button
-            variant="outline"
-            className="h-8 w-8 p-0"
-            onClick={handleNextPage}
-            disabled={!table.getCanNextPage()}
-          >
+          <Button variant="outline" className="h-8 w-8 p-0" onClick={handleNextPage} disabled={!table.getCanNextPage()}>
             <span className="sr-only">Go to next page</span>
             <ChevronRightIcon className="h-4 w-4" />
           </Button>

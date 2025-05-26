@@ -2,8 +2,9 @@
 
 import { PieChart } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "~/components/ui/card";
-import { Map } from "~/components/map/map";
+
 import { mockGroups } from "~/page-components/crud/groups-page/mockGroups";
+import dynamic from "next/dynamic";
 
 const mockData = {
   online: 28,
@@ -24,7 +25,9 @@ export function HomePage() {
   const { online, offline, total } = mockData;
   const onlinePercentage = (online / total) * 100;
   const offlinePercentage = (offline / total) * 100;
-
+  const Map = dynamic(() => import("~/components/map/map").then((mod) => mod.Map), {
+    ssr: false,
+  });
   return (
     <Card className="shadow-marcante-lg">
       <CardHeader>
@@ -55,7 +58,7 @@ export function HomePage() {
                   cx="50"
                   cy="50"
                   r="40"
-                  stroke="#ef4444"
+                  stroke="#94a3b8"
                   strokeWidth="8"
                   fill="none"
                   strokeDasharray={`${offlinePercentage * 2.51} 251.2`}
@@ -84,7 +87,7 @@ export function HomePage() {
               </div>
             </div>
             <div className="flex items-center space-x-2">
-              <div className="w-3 h-3 bg-error-500 rounded-full" />
+              <div className="w-3 h-3 bg-secondary-400 rounded-full" />
               <div>
                 <div className="text-sm font-medium">Offline</div>
                 <div className="text-xs text-gray-500">
@@ -112,7 +115,7 @@ export function HomePage() {
                 <span className="font-medium">{offline}</span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-2">
-                <div className="bg-error-500 h-2 rounded-full transition-all duration-500" style={{ width: `${offlinePercentage}%` }} />
+                <div className="bg-secondary-400 h-2 rounded-full transition-all duration-500" style={{ width: `${offlinePercentage}%` }} />
               </div>
             </div>
           </div>

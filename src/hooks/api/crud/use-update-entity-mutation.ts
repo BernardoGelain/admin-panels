@@ -1,3 +1,5 @@
+"use client";
+
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -6,17 +8,8 @@ import { API_ROUTES } from "~/config/api-routes";
 import { APP_ROUTES } from "~/config/app-routes";
 import { QUERY_KEYS } from "~/query-keys/query-keys";
 
-async function updateEntity<T>({
-  params,
-  route,
-}: {
-  params: { id: string; body: Partial<T> };
-  route: string;
-}) {
-  const response = await authorizedApi.put(
-    `${route}/${params.id}`,
-    params.body
-  );
+async function updateEntity<T>({ params, route }: { params: { id: string; body: Partial<T> }; route: string }) {
+  const response = await authorizedApi.put(`${route}/${params.id}`, params.body);
   return response;
 }
 
@@ -27,12 +20,7 @@ type UseUpdateEntityMutationParams = {
   route: keyof typeof API_ROUTES;
 };
 
-export function useUpdateEntityMutation<T>({
-  queryKey,
-  redirectPath,
-  successMessage,
-  route,
-}: UseUpdateEntityMutationParams) {
+export function useUpdateEntityMutation<T>({ queryKey, redirectPath, successMessage, route }: UseUpdateEntityMutationParams) {
   const router = useRouter();
   const queryClient = useQueryClient();
   return useMutation({
@@ -44,12 +32,12 @@ export function useUpdateEntityMutation<T>({
     onSuccess: async () => {
       await Promise.all([
         queryClient.invalidateQueries({
-          // @ts-expect-error - no types
+          // @ts-ignore: o tipo de queryKey não está bem definido
           queryKey: [QUERY_KEYS[queryKey].DETAILS],
           refetchType: "all",
         }),
         queryClient.invalidateQueries({
-          // @ts-expect-error - no types
+          // @ts-ignore: o tipo de queryKey não está bem definido
           queryKey: [QUERY_KEYS[queryKey].LIST],
           refetchType: "all",
         }),

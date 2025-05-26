@@ -3,7 +3,8 @@ import { useFormContext } from "react-hook-form";
 import { EntitySelector } from "~/components/crud/entity-selector/entity-selector";
 import { useGetEntityList } from "~/hooks/api/crud/use-get-entity-list";
 import { useDebounce } from "~/hooks/use-debounce";
-import { LocationAreaModel } from "~/page-components/crud/location-areas-page/types/location-area-model";
+import { GroupModel } from "~/page-components/crud/groups-page/types/group-model";
+
 import { QUERY_KEYS } from "~/query-keys/query-keys";
 
 export function LocationAreaSelector() {
@@ -14,9 +15,9 @@ export function LocationAreaSelector() {
   const [search, setSearch] = useState("");
   const debouncedSearch = useDebounce(search);
 
-  const locationAreaQuery = useGetEntityList<LocationAreaModel>({
-    entityBaseUrl: "LOCATION_AREAS",
-    queryKey: QUERY_KEYS.LOCATION_AREAS.LIST,
+  const locationAreaQuery = useGetEntityList<GroupModel>({
+    entityBaseUrl: "GROUPS",
+    queryKey: QUERY_KEYS.GROUPS.LIST,
     keywords: debouncedSearch || locationAreaName,
   });
 

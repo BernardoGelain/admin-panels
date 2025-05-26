@@ -1,7 +1,13 @@
 {
-  "extends": [
-    "next/core-web-vitals",
-    "next/typescript",
-    "plugin:@tanstack/query/recommended"
-  ]
+  "extends": ["next/core-web-vitals", "next/typescript", "plugin:@tanstack/query/recommended"],
+  "rules": {
+    "@typescript-eslint/ban-ts-comment": [
+      "warn",
+      {
+        "ts-expect-error": true, // permite o uso
+        "ts-ignore": true, // opcional
+        "minimumDescriptionLength": 0 // permite sem descrição
+      }
+    ]
+  }
 }

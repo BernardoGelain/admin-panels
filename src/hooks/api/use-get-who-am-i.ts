@@ -32,7 +32,7 @@ const getWhoAmI = async () => {
 
 export const useGetWhoAmI = () => {
   return useQuery({
-    queryKey: [QUERY_KEYS.USER.WHO_AM_I],
+    queryKey: [QUERY_KEYS.USERS.WHO_I_AM],
     queryFn: getWhoAmI,
   });
 };
