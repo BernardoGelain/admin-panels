@@ -11,14 +11,12 @@ export const ThemeSwitcher = () => {
   const { theme, setTheme } = useTheme();
 
   const themeButtons: Record<string, ReactNode> = {
-    light: (
-      <Moon className="absolute h-[1.2rem] w-[1.2rem] stroke-foreground" />
-    ),
+    light: <Moon className="absolute h-[1.2rem] w-[1.2rem] stroke-foreground" />,
     dark: <Sun className="h-[1.2rem] w-[1.2rem] stroke-foreground" />,
   };
 
   const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
+    setTheme(theme === "light" ? "dark" : "light");
   };
 
   useEffect(() => {
