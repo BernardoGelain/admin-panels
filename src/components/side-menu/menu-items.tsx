@@ -15,9 +15,11 @@ export const menuStructure = [
     subItems: [
       {
         label: "Grupos",
+        href: APP_ROUTES.GROUPS,
       },
       {
         label: "Painéis",
+        href: APP_ROUTES.PANELS,
       },
     ],
   },
@@ -28,11 +30,11 @@ export const menuStructure = [
     subItems: [
       {
         label: "Plano de mensagens",
-        href: APP_ROUTES.APP_NOTIFICATIONS,
+        href: APP_ROUTES.MESSAGES,
       },
       {
         label: "Configurações",
-        href: APP_ROUTES.APP_NOTIFICATIONS,
+        href: APP_ROUTES.MESSAGES,
       },
     ],
   },

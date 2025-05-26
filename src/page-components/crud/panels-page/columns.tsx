@@ -5,7 +5,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { EntityTableActions } from "~/components/crud/entity-table-actions/entity-table-actions";
 import { QUERY_KEYS } from "~/query-keys/query-keys";
 import { TableRowPrimaryText } from "~/components/crud/table-components/table-row-primary-text/table-row-primary-text";
-import { PanelModel } from "./types/city-model";
+import { PanelModel } from "./types/panel-model";
 
 export const panelColumns: ColumnDef<PanelModel>[] = [
   {

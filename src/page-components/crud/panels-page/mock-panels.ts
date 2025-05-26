@@ -1,4 +1,4 @@
-import { PanelModel } from "./types/city-model";
+import { PanelModel } from "./types/panel-model";
 
 export const mockPanels: PanelModel[] = [
   {

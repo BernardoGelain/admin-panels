@@ -11,7 +11,7 @@ import { useCreateEntityMutation } from "~/hooks/api/crud/use-create-entity-muta
 import { useUpdateEntityMutation } from "~/hooks/api/crud/use-update-entity-mutation";
 import { ControlledTextInput } from "~/components/form/controlled-input/controlled-input";
 import dynamic from "next/dynamic";
-import { PanelModel } from "~/page-components/crud/panels-page/types/city-model";
+import { PanelModel } from "~/page-components/crud/panels-page/types/panel-model";
 import { PanelFormValidation, PanelFormValues } from "./validation/panel-form-validation";
 
 const Map = dynamic(() => import("~/components/map/map").then((mod) => mod.Map), {
