@@ -2,6 +2,7 @@ export const QUERY_KEYS = {
   PANELS: {
     LIST: "panels-list",
     DETAILS: "panels-details",
+    SUMMARY: "summary",
   },
   MESSAGES: {
     LIST: "messages-list",

@@ -10,7 +10,7 @@ import withSuspense from "~/hoc/with-suspense";
 import { cn } from "~/lib/utils";
 
 function AuthorizedLayout({ children }: { children: React.ReactNode }) {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const router = useRouter();
 
   return (
@@ -34,32 +34,17 @@ function AuthorizedLayout({ children }: { children: React.ReactNode }) {
             "transform transition-transform duration-300 ease-in-out",
             "bg-background",
             "lg:transform-none",
-            isSidebarOpen
-              ? "translate-x-0 w-64"
-              : "-translate-x-full lg:translate-x-0 lg:w-16"
+            isSidebarOpen ? "translate-x-0 w-64" : "-translate-x-full lg:translate-x-0 lg:w-16"
           )}
         >
-          <Sidebar
-            isCollapsed={!isSidebarOpen}
-            onToggle={() => setIsSidebarOpen(!isSidebarOpen)}
-          />
+          <Sidebar isCollapsed={!isSidebarOpen} onToggle={() => setIsSidebarOpen(!isSidebarOpen)} />
         </div>
 
-        {isSidebarOpen && (
-          <div
-            className="fixed inset-0 bg-black/20 z-30 lg:hidden"
-            onClick={() => setIsSidebarOpen(false)}
-          />
-        )}
+        {isSidebarOpen && <div className="fixed inset-0 bg-black/20 z-30 lg:hidden" onClick={() => setIsSidebarOpen(false)} />}
 
         <main className="flex-grow p-4 lg:p-8 overflow-y-auto w-full">
           {router.back && (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => router.back()}
-              className="mb-4 flex gap-2"
-            >
+            <Button variant="ghost" size="sm" onClick={() => router.back()} className="mb-4 flex gap-2">
               <ArrowLeftIcon size={16} />
               Voltar
             </Button>

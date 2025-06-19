@@ -1,7 +1,10 @@
 import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import nookies from "nookies";
+import { useRouter } from "next/navigation";
+import api from "~/api/api"; // 👈 aqui você usa o *não autorizado* (sem token)
 import { APP_ROUTES } from "~/config/app-routes";
+import { AxiosError } from "axios";
 
 interface LoginParams {
   email: string;
@@ -13,19 +16,9 @@ interface LoginResponse {
   refreshToken: string;
 }
 
-// 🔧 Função de login simulada (mock)
-async function login({ email, password }: LoginParams): Promise<{ body: LoginResponse }> {
-  // Simula validação simples
-  if (email === "teste@teste.com" && password === "123456") {
-    return {
-      body: {
-        accessToken: "mock-access-token",
-        refreshToken: "mock-refresh-token",
-      },
-    };
-  }
-
-  throw new Error("Credenciais inválidas");
+async function login(params: LoginParams): Promise<LoginResponse> {
+  const response = await api.post("/auth/login", params);
+  return response.data;
 }
 
 export const useLoginMutation = () => {
@@ -33,20 +26,23 @@ export const useLoginMutation = () => {
 
   return useMutation({
     mutationFn: login,
-    onSuccess: async (loginResponse) => {
-      // Salva tokens fake nos cookies
-      nookies.set(null, "token", loginResponse.body.accessToken, {
-        maxAge: 30 * 24 * 60 * 60, // 30 dias
-        path: "/",
-      });
-
-      nookies.set(null, "refreshToken", loginResponse.body.refreshToken, {
+    onSuccess: (loginResponse) => {
+      nookies.set(null, "token", loginResponse.accessToken, {
         maxAge: 30 * 24 * 60 * 60,
         path: "/",
       });
 
-      // Redireciona para rota protegida
+      nookies.set(null, "refreshToken", loginResponse.refreshToken, {
+        maxAge: 30 * 24 * 60 * 60,
+        path: "/",
+      });
+
+      toast.success("Login realizado com sucesso!");
       router.push(APP_ROUTES.HOME);
+    },
+    onError: (error: AxiosError) => {
+      if (error.status === 401) return toast.error("Credenciais incorretas");
+      toast.error("Erro ao fazer login.");
     },
   });
 };

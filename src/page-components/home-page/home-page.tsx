@@ -3,28 +3,23 @@
 import { PieChart } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "~/components/ui/card";
 
-import { mockGroups } from "~/page-components/crud/groups-page/mockGroups";
 import dynamic from "next/dynamic";
-
-const mockData = {
-  online: 28,
-  offline: 12,
-  total: 40,
-};
-
-// Extrair todos os painéis com posição
-const allMockPanels = mockGroups.flatMap((group) =>
-  group.panels.map((panel) => ({
-    lat: Number(panel.lat),
-    lng: Number(panel.long),
-    label: panel.name,
-  }))
-);
+import { useGetPanelsSummary } from "~/hooks/api/use-get-panels-summary";
+import { useGetEntityList } from "~/hooks/api/crud/use-get-entity-list";
+import { PanelModel } from "../crud/panels-page/types/panel-model";
+import { QUERY_KEYS } from "~/query-keys/query-keys";
+import { usePanelCoordinates } from "~/hooks/use-panel-coordinates";
 
 export function HomePage() {
-  const { online, offline, total } = mockData;
-  const onlinePercentage = (online / total) * 100;
-  const offlinePercentage = (offline / total) * 100;
+  const { data } = useGetPanelsSummary();
+  const { data: panelsData } = useGetEntityList<PanelModel>({
+    entityBaseUrl: "PANELS",
+    queryKey: QUERY_KEYS.PANELS.LIST,
+  });
+  const coordinates = usePanelCoordinates(panelsData);
+  console.log(coordinates);
+  const onlinePercentage = data ? (data?.online / data?.total) * 100 : 0;
+  const offlinePercentage = data ? (data?.offline / data?.total) * 100 : 0;
   const Map = dynamic(() => import("~/components/map/map").then((mod) => mod.Map), {
     ssr: false,
   });
@@ -68,7 +63,7 @@ export function HomePage() {
               </svg>
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-marcante-600">{total}</div>
+                  <div className="text-2xl font-bold text-marcante-600">{data?.total}</div>
                   <div className="text-sm text-gray-500">Total</div>
                 </div>
               </div>
@@ -82,7 +77,7 @@ export function HomePage() {
               <div>
                 <div className="text-sm font-medium">Online</div>
                 <div className="text-xs text-gray-500">
-                  {online} painéis ({onlinePercentage.toFixed(1)}%)
+                  {data?.online} painéis ({onlinePercentage.toFixed(1)}%)
                 </div>
               </div>
             </div>
@@ -91,7 +86,7 @@ export function HomePage() {
               <div>
                 <div className="text-sm font-medium">Offline</div>
                 <div className="text-xs text-gray-500">
-                  {offline} painéis ({offlinePercentage.toFixed(1)}%)
+                  {data?.offline} painéis ({offlinePercentage.toFixed(1)}%)
                 </div>
               </div>
             </div>
@@ -102,7 +97,7 @@ export function HomePage() {
             <div>
               <div className="flex justify-between text-sm mb-1">
                 <span>Painéis Online</span>
-                <span className="font-medium">{online}</span>
+                <span className="font-medium">{data?.online}</span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-2">
                 <div className="bg-marcante-600 h-2 rounded-full transition-all duration-500" style={{ width: `${onlinePercentage}%` }} />
@@ -112,7 +107,7 @@ export function HomePage() {
             <div>
               <div className="flex justify-between text-sm mb-1">
                 <span>Painéis Offline</span>
-                <span className="font-medium">{offline}</span>
+                <span className="font-medium">{data?.online}</span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-2">
                 <div className="bg-secondary-400 h-2 rounded-full transition-all duration-500" style={{ width: `${offlinePercentage}%` }} />
@@ -124,7 +119,7 @@ export function HomePage() {
           <div className="pt-6">
             <h3 className="text-base font-semibold mb-2 text-foreground">Localização dos painéis</h3>
             <div className="h-[400px] w-full rounded-md overflow-hidden border">
-              <Map multiplePoints={allMockPanels} />
+              {coordinates?.length > 0 && <Map multiplePoints={coordinates} />}
             </div>
           </div>
         </div>

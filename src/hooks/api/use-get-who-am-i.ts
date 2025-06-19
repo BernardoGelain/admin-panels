@@ -25,7 +25,7 @@ export type User = {
 const getWhoAmI = async () => {
   const response = await authorizedApi<{
     body: User;
-  }>("/account/whoami");
+  }>("users/whoami");
 
   return response.data;
 };

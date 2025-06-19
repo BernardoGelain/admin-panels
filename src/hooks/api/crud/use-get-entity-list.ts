@@ -5,17 +5,7 @@ import { API_ROUTES } from "~/config/api-routes";
 import { GetListParamsBase } from "~/types/get-list-params-base";
 import { PaginatedResponse } from "~/types/paginated-response";
 
-type EntityResponse<T> = {
-  body: PaginatedResponse<T>;
-};
-
-async function getEntityList<T>({
-  keywords,
-  page = 1,
-  pageSize = 50,
-  sort,
-  entityBaseUrl,
-}: GetListParamsBase) {
+async function getEntityList<T>({ keywords, page = 1, pageSize = 50, sort, entityBaseUrl }: GetListParamsBase) {
   const queryParams = new URLSearchParams();
 
   if (keywords) {
@@ -29,9 +19,7 @@ async function getEntityList<T>({
   queryParams.set("page", String(page));
   queryParams.set("pageSize", String(pageSize));
 
-  const response = await authorizedApi.get<EntityResponse<T>>(
-    `${entityBaseUrl}?${queryParams.toString()}`
-  );
+  const response = await authorizedApi.get<PaginatedResponse<T>>(`${entityBaseUrl}?${queryParams.toString()}`);
 
   return response.data;
 }
@@ -42,11 +30,7 @@ type UseGetEntityListParams = {
   keywords?: string;
 };
 
-export function useGetEntityList<T>({
-  queryKey,
-  entityBaseUrl,
-  keywords,
-}: UseGetEntityListParams) {
+export function useGetEntityList<T>({ queryKey, entityBaseUrl, keywords }: UseGetEntityListParams) {
   const searchParams = useSearchParams();
   const _keywords = keywords || searchParams.get("search") || "";
   const page = Number(searchParams.get("page")) || 1;
@@ -54,15 +38,7 @@ export function useGetEntityList<T>({
   const sort = searchParams.get("sort") || "";
 
   return useQuery({
-    queryKey: [
-      queryKey,
-      _keywords,
-      keywords,
-      page,
-      pageSize,
-      sort,
-      API_ROUTES[entityBaseUrl].toString(),
-    ],
+    queryKey: [queryKey, _keywords, keywords, page, pageSize, sort, API_ROUTES[entityBaseUrl].toString()],
     queryFn: () =>
       getEntityList<T>({
         keywords: _keywords,

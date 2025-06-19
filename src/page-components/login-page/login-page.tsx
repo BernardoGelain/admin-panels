@@ -7,7 +7,7 @@ import { useTheme } from "next-themes";
 
 export function LoginPage() {
   const { theme } = useTheme();
-  console.log(theme);
+
   return (
     <div className="min-h-screen flex flex-col md:grid md:grid-cols-1 lg:grid-cols-2 bg-background text-foreground">
       <div className="absolute flex items-center justify-center z-40 w-max top-4 right-4 md:top-12 md:right-12">
