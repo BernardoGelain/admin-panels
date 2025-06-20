@@ -40,7 +40,7 @@ export function MessageForm({ messageId }: { messageId?: string }) {
   const messageForm = useForm<MessageFormValues>({
     resolver: zodResolver(MessageFormValidation),
     mode: "all",
-    values: messageDetailsQuery.data?.body && {
+    values: messageDetailsQuery.data && {
       content: messageDetailsQuery.data.body.content,
       panelIds: messageDetailsQuery.data.body.panels.map((p) => p.id),
       groupIds: messageDetailsQuery.data.body.groups.map((g) => g.id),

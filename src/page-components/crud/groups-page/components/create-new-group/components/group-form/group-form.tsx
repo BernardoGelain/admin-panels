@@ -13,7 +13,7 @@ import { ControlledTextInput } from "~/components/form/controlled-input/controll
 import { MultiEntitySelector } from "~/components/crud/entity-multi-selector/entity-multi-selector";
 import { GroupModel } from "~/page-components/crud/groups-page/types/group-model";
 import { GroupFormValidation, GroupFormValues } from "./validation/group-form-validation";
-import { Map } from "~/components/map/map";
+
 type GroupFormPayload = {
   name: string;
   description: string;
@@ -44,7 +44,7 @@ export function GroupForm({ groupId }: { groupId?: string }) {
   const groupForm = useForm<GroupFormPayload>({
     resolver: zodResolver(GroupFormValidation),
     mode: "all",
-    values: groupDetailsQuery.data?.body && {
+    values: groupDetailsQuery.data && {
       name: groupDetailsQuery.data.body.name,
       description: groupDetailsQuery.data.body.description,
       panelIds: groupDetailsQuery.data.body.panels.map((p) => p.id),
@@ -96,7 +96,7 @@ export function GroupForm({ groupId }: { groupId?: string }) {
         </Card>
       </FormProvider>{" "}
       <div className="z-0 mt-3">
-        <Map
+        {/*   <Map
           key={1}
           multiplePoints={[
             { lat: -23.55052, lng: -46.633308, label: "Painel Central" },
@@ -106,7 +106,7 @@ export function GroupForm({ groupId }: { groupId?: string }) {
             { lat: -23.564, lng: -46.654, label: "Painel Oeste" },
             { lat: -23.5567, lng: -46.6353, label: "Painel Liberdade" },
           ]}
-        />
+        /> */}
       </div>
     </div>
   );

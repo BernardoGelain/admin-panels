@@ -70,9 +70,9 @@ authorizedApi.interceptors.response.use(
       return getAuthToken()
         .then((response) => {
           originalConfig!.sent = true;
-          nookies.set(null, "token", response?.data?.body?.accessToken);
-          nookies.set(null, "refreshToken", response?.data?.body?.refreshToken);
-          originalConfig.headers!.Authorization = `Bearer ${response?.data?.body?.accessToken}`;
+          nookies.set(null, "token", response?.data?.data?.accessToken);
+          nookies.set(null, "refreshToken", response?.data?.data?.refreshToken);
+          originalConfig.headers!.Authorization = `Bearer ${response?.data?.data?.accessToken}`;
           return authorizedApi(originalConfig);
         })
         .catch((e) => {

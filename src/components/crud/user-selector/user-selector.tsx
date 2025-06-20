@@ -20,7 +20,7 @@ export function UserSelector() {
     keywords: debouncedSearch || userName,
   });
 
-  const options = usersQuery.data?.body.items.map((user) => ({
+  const options = usersQuery.data?.data.map((user) => ({
     label: user.name,
     value: String(user.id),
   }));

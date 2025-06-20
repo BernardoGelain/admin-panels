@@ -18,7 +18,7 @@ export function AvatarMenu() {
   const router = useRouter();
   const queryClient = useQueryClient();
 
-  const user = whoAmIQuery.data?.body;
+  const user = whoAmIQuery.data?.data;
 
   const onLogout = () => {
     fetch("/logout").then(() => {
@@ -33,18 +33,14 @@ export function AvatarMenu() {
         <Button variant="secondary" size="icon" className="rounded-full">
           <Avatar className="h-6 w-6">
             <AvatarImage src={user?.image} alt={user?.name} />
-            <AvatarFallback>
-              {user?.name.substring(0, 2).toUpperCase()}
-            </AvatarFallback>
+            <AvatarFallback>{user?.name.substring(0, 2).toUpperCase()}</AvatarFallback>
           </Avatar>
           <span className="sr-only">Toggle user menu</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>{user?.name}</DropdownMenuLabel>
-        <DropdownMenuLabel className="-mt-3 text-xs font-normal">
-          {user?.email}
-        </DropdownMenuLabel>
+        <DropdownMenuLabel className="-mt-3 text-xs font-normal">{user?.email}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={onLogout}>Sair</DropdownMenuItem>
       </DropdownMenuContent>

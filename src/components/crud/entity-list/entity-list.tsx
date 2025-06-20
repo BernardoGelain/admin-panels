@@ -10,9 +10,7 @@ import { API_ROUTES } from "~/config/api-routes";
 type Props = {
   entityName: string;
   entityBaseUrl: keyof typeof API_ROUTES;
-  entityListQuery: UseQueryResult<{
-    body: PaginatedResponse<unknown>;
-  }>;
+  entityListQuery: UseQueryResult<PaginatedResponse<unknown>>;
   /* eslint-disable @typescript-eslint/no-explicit-any */
   entityColumns: any;
   addButtonText?: string;
@@ -29,7 +27,7 @@ export function EntityList({
   removeAddButton,
   mockData,
 }: Props) {
-  const data = entityListQuery?.data?.body;
+  const data = entityListQuery?.data;
 
   const pageCount = data ? Math.ceil(data.total / data.pageSize) : 0;
 
@@ -49,7 +47,7 @@ export function EntityList({
         <DataTable
           isLoading={entityListQuery.isLoading}
           columns={entityColumns}
-          data={data?.items ?? mockData ?? []}
+          data={data?.data ?? mockData ?? []}
           totalRecords={data?.total ?? 0}
           pageCount={pageCount}
         />

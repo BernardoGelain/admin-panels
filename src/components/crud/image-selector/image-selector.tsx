@@ -49,7 +49,7 @@ export const ImageSelector = () => {
 
   const selectedImage = form.watch("imageId");
 
-  const images = data?.body?.items ?? [];
+  const images = data?.data ?? [];
 
   const selectedImageObj =
     images.find((img) => String(img.id) === selectedImage) ||

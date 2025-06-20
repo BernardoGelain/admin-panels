@@ -43,7 +43,7 @@ export function PanelForm({ panelId }: { panelId?: string }) {
   const panelForm = useForm<PanelFormValues>({
     resolver: zodResolver(PanelFormValidation),
     mode: "all",
-    values: panelDetailsQuery.data?.body && {
+    values: panelDetailsQuery.data && {
       lat: +panelDetailsQuery.data.body.location.lat,
       lng: +panelDetailsQuery.data.body.location.long,
       name: panelDetailsQuery.data.body.name,

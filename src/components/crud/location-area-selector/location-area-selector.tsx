@@ -21,7 +21,7 @@ export function LocationAreaSelector() {
     keywords: debouncedSearch || locationAreaName,
   });
 
-  const options = locationAreaQuery.data?.body.items.map((locationArea) => ({
+  const options = locationAreaQuery.data?.data.map((locationArea) => ({
     label: locationArea.name,
     value: String(locationArea.id),
   }));
