@@ -41,9 +41,9 @@ export function MessageForm({ messageId }: { messageId?: string }) {
     resolver: zodResolver(MessageFormValidation),
     mode: "all",
     values: messageDetailsQuery.data && {
-      content: messageDetailsQuery.data.body.content,
-      panelIds: messageDetailsQuery.data.body.panels.map((p) => p.id),
-      groupIds: messageDetailsQuery.data.body.groups.map((g) => g.id),
+      content: messageDetailsQuery.data.content,
+      panelIds: messageDetailsQuery.data.panels.map((p) => p.id),
+      groupIds: messageDetailsQuery.data.groups.map((g) => g.id),
     },
   });
 

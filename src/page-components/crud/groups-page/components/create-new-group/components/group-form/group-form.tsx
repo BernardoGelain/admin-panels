@@ -45,9 +45,9 @@ export function GroupForm({ groupId }: { groupId?: string }) {
     resolver: zodResolver(GroupFormValidation),
     mode: "all",
     values: groupDetailsQuery.data && {
-      name: groupDetailsQuery.data.body.name,
-      description: groupDetailsQuery.data.body.description,
-      panelIds: groupDetailsQuery.data.body.panels.map((p) => p.id),
+      name: groupDetailsQuery.data.name,
+      description: groupDetailsQuery.data.description,
+      panelIds: groupDetailsQuery.data.panels.map((p) => p.id),
     },
   });
 
