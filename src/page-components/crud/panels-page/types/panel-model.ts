@@ -6,7 +6,7 @@ export type PanelModel = {
   groupId?: number;
   online: boolean;
   location: {
-    street: string;
+    street?: string;
     lat: string;
     long: string;
     point: {

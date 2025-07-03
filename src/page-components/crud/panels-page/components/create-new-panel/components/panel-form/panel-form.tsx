@@ -44,9 +44,10 @@ export function PanelForm({ panelId }: { panelId?: string }) {
     resolver: zodResolver(PanelFormValidation),
     mode: "all",
     values: panelDetailsQuery.data && {
-      lat: +panelDetailsQuery.data.body.location.lat,
-      lng: +panelDetailsQuery.data.body.location.long,
-      name: panelDetailsQuery.data.body.name,
+      name: panelDetailsQuery.data.name,
+      street: panelDetailsQuery.data.location.street,
+      lat: +panelDetailsQuery.data.location.lat,
+      lng: +panelDetailsQuery.data.location.long,
     },
   });
 
@@ -54,7 +55,7 @@ export function PanelForm({ panelId }: { panelId?: string }) {
     const payload: Partial<PanelModel> = {
       name: data.name,
       location: {
-        street: "", // ajuste se quiser capturar rua no formulário
+        street: data.street,
         lat: String(data.lat),
         long: String(data.lng),
         point: {
@@ -84,6 +85,7 @@ export function PanelForm({ panelId }: { panelId?: string }) {
 
           <CardContent className="flex flex-col gap-4" isLoading={panelDetailsQuery?.isLoading} Loader={<LoadingContent />}>
             <ControlledTextInput name="name" label="Nome" />
+            <ControlledTextInput name="street" label="Rua" />
             <ControlledTextInput name="lat" label="Latitude" />
             <ControlledTextInput name="lng" label="Longitude" />
 

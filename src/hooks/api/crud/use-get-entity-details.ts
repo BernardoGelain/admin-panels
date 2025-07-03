@@ -7,14 +7,10 @@ type GetEntityDetailsParams = {
   entityBaseUrl: string;
 };
 
-type GetEntityDetailsResponse<T> = {
-  body: T;
-};
+type GetEntityDetailsResponse<T> = T;
 
 async function getEntityDetails<T>(params: GetEntityDetailsParams) {
-  const response = await authorizedApi.get<GetEntityDetailsResponse<T>>(
-    `${params.entityBaseUrl}/${params.entityId}`
-  );
+  const response = await authorizedApi.get<GetEntityDetailsResponse<T>>(`${params.entityBaseUrl}/${params.entityId}`);
   return response.data;
 }
 
@@ -25,12 +21,7 @@ type UseGetEntityDetails = {
   entityBaseUrl: keyof typeof API_ROUTES;
 };
 
-export function useGetEntityDetails<T>({
-  enabled,
-  entityId,
-  queryKey,
-  entityBaseUrl,
-}: UseGetEntityDetails) {
+export function useGetEntityDetails<T>({ enabled, entityId, queryKey, entityBaseUrl }: UseGetEntityDetails) {
   return useQuery({
     queryKey: [queryKey, entityId, entityBaseUrl],
     queryFn: () =>

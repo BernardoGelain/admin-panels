@@ -1,6 +1,7 @@
 export const QUERY_KEYS = {
   PANELS: {
     LIST: "panels-list",
+    CREATE: "create",
     DETAILS: "panels-details",
     SUMMARY: "summary",
   },
