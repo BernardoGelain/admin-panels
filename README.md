@@ -28,6 +28,12 @@ Someone operating panels needs the current online and offline split and the loca
 
 Next.js 14, React 18, TypeScript, Tailwind CSS, Radix, React Query, React Table, Leaflet, react-hook-form
 
+## Screenshot
+
+Public login screen. The fields are empty.
+
+![Marcante Admin login](docs/login.png)
+
 ## Running locally
 
 Requirements: Node.js 18 and the API running locally.
